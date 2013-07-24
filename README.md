@@ -1,6 +1,6 @@
 sqlite-digest
 =============
-Message digest extension for SQLite3 using OpenSSL.
+Message digest extension for SQLite3 using OpenSSL. Released under the MIT license (see LICENSE for more information).
 
 SQLite-digest provides three functions for computing hashes in sqlite: `digest`, `sha1` and `md5`.
 
