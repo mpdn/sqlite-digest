@@ -1,4 +1,4 @@
-sqlite-digest
+SQLite-digest
 =============
 Message digest extension for SQLite3 using OpenSSL. Released under the MIT license (see LICENSE for more information).
 
