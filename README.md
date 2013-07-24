@@ -2,9 +2,9 @@ sqlite-digest
 =============
 Message digest extension for SQLite3 using OpenSSL.
 
-The `digest` function takes a OpenSSL digest name as the first parameter and one or more values to digest. You can see *some* of the available digest names by installing the OpenSSL command line tool and executing `openssl list-message-digest-commands`.
+SQLite-digest provides three functions for computing hashes in sqlite: `digest`, `sha1` and `md5`.
 
-Two other functions are also available: `sha1` and `md5`. These are identical to calling the `digest` function with respectively "sha1" and "md5" as the first parameter.
+The `digest` function takes a OpenSSL digest name as the first parameter and one or more values to digest. You can see *some* of the available digest names by installing the OpenSSL command line tool and executing `openssl list-message-digest-commands`. `sha1` and `md5` are identical to calling the `digest` function with respectively "sha1" and "md5" as the first parameter.
 
 The returned digest is always a blob, so it might be neccesary to use the `hex` function to get the string representation. Bear in mind that the `hex` function returns hexdecimal in upper case, whereas most hashes are represented with lower case hexdecimal.
 
