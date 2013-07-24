@@ -10,9 +10,10 @@ The returned digest is always a blob, so it might be neccesary to use the `hex` 
 
 All functions are variadic (i.e. they can take any number of arguments). If called with more than one argument, the digest will be calculated as if their binary values were concatenated.
 
-Example
+SQL Example
 -------
 ```sql
+.load ./digest.so
 SELECT hex(digest("sha1", "abc")); -- returns "A9993E364706816ABA3E25717850C26C9CD0D89D"
 SELECT hex(sha1("abc"));           -- identical to the above function
 
