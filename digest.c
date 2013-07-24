@@ -13,6 +13,12 @@ void sqlite3_digest_type(sqlite3_context *context, int argc, sqlite3_value** arg
 	unsigned char *result;
 	unsigned int result_length;
 	
+	if (argc < 1)
+	{
+		sqlite3_result_error(context, "Insufficient arguments to digest function", -1);
+		return;
+	}
+	
 	result = sqlite3_malloc(EVP_MAX_MD_SIZE);
 	
 	if (result == NULL)
@@ -60,7 +66,7 @@ void sqlite3_digest(sqlite3_context *context, int argc, sqlite3_value** argv)
 	
 	if (argc < 1)
 	{
-		sqlite3_result_error(context, "Insufficient arguments to 'digest' function", -1);
+		sqlite3_result_error(context, "Insufficient arguments to digest function", -1);
 		return;
 	}
 	
