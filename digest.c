@@ -9,7 +9,7 @@ sqlite3 values specified by argc and argv
 void sqlite3_digest_type(sqlite3_context *context, int argc, sqlite3_value** argv, const EVP_MD *digest_type)
 {
 	int i;
-	EVP_MD_CTX digest;
+	EVP_MD_CTX *digest;
 	unsigned char *result;
 	unsigned int result_length;
 	
@@ -26,10 +26,11 @@ void sqlite3_digest_type(sqlite3_context *context, int argc, sqlite3_value** arg
 		sqlite3_result_error_nomem(context);
 		return;
 	}
+
+	digest = EVP_MD_CTX_new();
+	EVP_MD_CTX_init(digest);
 	
-	EVP_MD_CTX_init(&digest);
-	
-	if (!EVP_DigestInit_ex(&digest, digest_type, NULL))
+	if (!EVP_DigestInit_ex(digest, digest_type, NULL))
 	{
 		sqlite3_result_error(context, "Failed intializing digest", -1);
 		return;
@@ -38,20 +39,16 @@ void sqlite3_digest_type(sqlite3_context *context, int argc, sqlite3_value** arg
 	for (i = 0; i < argc; i++)
 	{
 		int size = sqlite3_value_bytes(argv[i]);
-		EVP_DigestUpdate(&digest, sqlite3_value_blob(argv[i]), size);
+		EVP_DigestUpdate(digest, sqlite3_value_blob(argv[i]), size);
 	}
 	
-	if (!EVP_DigestFinal_ex(&digest, result, &result_length))
+	if (!EVP_DigestFinal_ex(digest, result, &result_length))
 	{
 		sqlite3_result_error(context, "Failed finilazing digest", -1);
 		return;
 	}
 	
-	if (!EVP_MD_CTX_cleanup(&digest))
-	{
-		sqlite3_result_error(context, "Failed cleaning up digest context", -1);
-		return;
-	}
+	EVP_MD_CTX_free(digest);
 	
 	sqlite3_result_blob(context, result, result_length, sqlite3_free);
 }
