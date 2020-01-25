@@ -79,6 +79,10 @@ void sqlite3_digest(sqlite3_context *context, int argc, sqlite3_value** argv)
 }
 
 /*
+For list of EVP_* see OpenSSL docs: https://www.openssl.org/docs/man1.1.0/man3/EVP_DigestInit.html
+*/
+
+/*
 Digests a series of sqlite3 values using MD5
 */
 void sqlite3_digest_md5(sqlite3_context *context, int argc, sqlite3_value** argv)
@@ -95,6 +99,22 @@ void sqlite3_digest_sha1(sqlite3_context *context, int argc, sqlite3_value** arg
 }
 
 /*
+Digests a series of sqlite3 values using SHA-256
+*/
+void sqlite3_digest_sha256(sqlite3_context *context, int argc, sqlite3_value** argv)
+{
+        sqlite3_digest_type(context, argc, argv, EVP_sha256());
+}
+
+/*
+Digests a series of sqlite3 values using SHA-512
+*/
+void sqlite3_digest_sha512(sqlite3_context *context, int argc, sqlite3_value** argv)
+{
+        sqlite3_digest_type(context, argc, argv, EVP_sha512());
+}
+
+/*
 Initializes the digest functions
 */
 int sqlite3_digest_init(sqlite3 *db, char **err, const sqlite3_api_routines *api)
@@ -103,6 +123,8 @@ int sqlite3_digest_init(sqlite3 *db, char **err, const sqlite3_api_routines *api
 	OpenSSL_add_all_digests();
 	sqlite3_create_function(db, "digest", -1, SQLITE_ANY, NULL, sqlite3_digest,      NULL, NULL);
 	sqlite3_create_function(db, "sha1",   -1, SQLITE_ANY, NULL, sqlite3_digest_sha1, NULL, NULL);
+	sqlite3_create_function(db, "sha256", -1, SQLITE_ANY, NULL, sqlite3_digest_sha256,  NULL, NULL);
+	sqlite3_create_function(db, "sha512", -1, SQLITE_ANY, NULL, sqlite3_digest_sha512,  NULL, NULL);
 	sqlite3_create_function(db, "md5",    -1, SQLITE_ANY, NULL, sqlite3_digest_md5,  NULL, NULL);
 	return SQLITE_OK;
 }

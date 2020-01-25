@@ -2,7 +2,7 @@ SQLite-digest
 =============
 Message digest extension for SQLite3 using OpenSSL. Released under the MIT license (see LICENSE for more information).
 
-SQLite-digest provides three functions for computing hashes in sqlite: `digest`, `sha1` and `md5`.
+SQLite-digest provides functions for computing hashes in SQLite: `md5`, `sha1`, `sha256`, `sha512` and `digest`.
 
 The `digest` function takes a OpenSSL digest name as the first argument and one or more values to digest. You can see *some* of the available digest names by installing the OpenSSL command line tool and executing `openssl list -digest-algorithms`. For OpenSSL 1.1.0f it is `BLAKE2b512`, `BLAKE2s256`, `MD4`, `MD5`, `MD5-SHA1`, `RIPEMD160`, `RSA-SHA1`, `SHA1`, `SHA224`, `SHA256`, `SHA384`, `SHA512`, `whirlpool`.
 
