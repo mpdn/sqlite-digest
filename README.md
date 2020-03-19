@@ -6,7 +6,7 @@ SQLite-digest provides functions for computing hashes in SQLite: `md5`, `sha1`, 
 
 The `digest` function takes a OpenSSL digest name as the first argument and one or more values to digest. You can see *some* of the available digest names by installing the OpenSSL command line tool and executing `openssl list -digest-algorithms`. For OpenSSL 1.1.0f it is `BLAKE2b512`, `BLAKE2s256`, `MD4`, `MD5`, `MD5-SHA1`, `RIPEMD160`, `RSA-SHA1`, `SHA1`, `SHA224`, `SHA256`, `SHA384`, `SHA512`, `whirlpool`.
 
-Functions named `sha1` and `md5` are identical to calling the `digest` function with respectively "sha1" and "md5" as the first argument. See examples below.
+The remaining functions are identical to calling the `digest` function with the name as the first argument. Eg. `sha256("a")` is the same as `digest("sha256", "a")`. See examples below.
 
 The returned digest is always a blob, so it might be necessary to use the `hex` function to get the string representation. Bear in mind that the `hex` function returns hexadecimal in upper case, whereas most hashes are represented with lower case hexadecimal.
 
