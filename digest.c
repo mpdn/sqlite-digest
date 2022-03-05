@@ -121,11 +121,11 @@ int sqlite3_digest_init(sqlite3 *db, char **err, const sqlite3_api_routines *api
 {
 	SQLITE_EXTENSION_INIT2(api);
 	OpenSSL_add_all_digests();
-	sqlite3_create_function(db, "digest", -1, SQLITE_ANY, NULL, sqlite3_digest,      NULL, NULL);
-	sqlite3_create_function(db, "sha1",   -1, SQLITE_ANY, NULL, sqlite3_digest_sha1, NULL, NULL);
-	sqlite3_create_function(db, "sha256", -1, SQLITE_ANY, NULL, sqlite3_digest_sha256,  NULL, NULL);
-	sqlite3_create_function(db, "sha512", -1, SQLITE_ANY, NULL, sqlite3_digest_sha512,  NULL, NULL);
-	sqlite3_create_function(db, "md5",    -1, SQLITE_ANY, NULL, sqlite3_digest_md5,  NULL, NULL);
+	sqlite3_create_function(db, "digest", -1, SQLITE_INNOCUOUS|SQLITE_DETERMINISTIC, NULL, sqlite3_digest,      NULL, NULL);
+	sqlite3_create_function(db, "sha1",   -1, SQLITE_INNOCUOUS|SQLITE_DETERMINISTIC, NULL, sqlite3_digest_sha1, NULL, NULL);
+	sqlite3_create_function(db, "sha256", -1, SQLITE_INNOCUOUS|SQLITE_DETERMINISTIC, NULL, sqlite3_digest_sha256,  NULL, NULL);
+	sqlite3_create_function(db, "sha512", -1, SQLITE_INNOCUOUS|SQLITE_DETERMINISTIC, NULL, sqlite3_digest_sha512,  NULL, NULL);
+	sqlite3_create_function(db, "md5",    -1, SQLITE_INNOCUOUS|SQLITE_DETERMINISTIC, NULL, sqlite3_digest_md5,  NULL, NULL);
 	return SQLITE_OK;
 }
 
