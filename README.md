@@ -27,7 +27,7 @@ SELECT hex(md5("a", "b", "c"));    -- also identical
 Tested compatibility
 -------------
 
-OpenSSL v1.1
+OpenSSL v3.0.2
 
-SQLite v3.16
+SQLite v3.37.2
 
